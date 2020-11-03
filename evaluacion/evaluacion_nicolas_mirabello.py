@@ -1,9 +1,21 @@
 import csv
+import os
 
 def acciones():
-    ARCHIVO = "empleados.csv"
+    flag="si"
+    ruta = input(f"Ingrese el nombre del archivo: ")
+    if os.path.isfile(ruta):
+        print('El archivo existe. ¿Desea sobrescribirlo?: ',end="")
+        flag = input("si / no")
+        if flag == "si":
+            ruta = input(f"Ingrese el nombre del archivo")
+    else:
+        print('Se creo correctamente.\n');
+
+    ARCHIVO = ruta
     VACACIONES = "dias.csv"
     CAMPOS = ["Legajo", "Apellido", "Nombre", "Vacaciones"]
+
 
     while True:
         print ("Elija una opción: \n1. Guardar datos del empleado.\n2. Cargar días de vacaciones disponibles.\n3. Salir")
@@ -19,9 +31,10 @@ def acciones():
             print("\n >Error. Ingrese opcion una opción valida.\n")
 
 
-def guardar_datos(archivo,campos):
 
-    archivo = input("Ingrese el nombre del documento que desea guardar en csv: ")
+
+
+def guardar_datos(archivo,campos):
 
     lista_de_empleados = []
     guardar = "si"
@@ -30,7 +43,14 @@ def guardar_datos(archivo,campos):
         empleado = {}
 
         for campo in campos:
-            empleado[campo] = input(f"Ingrese {campo} del empleado: ")
+            if campo == "Legajo":
+                print(f"Ingrese {campo} del empleado: ",end ="")
+                empleado[campo] = pedir_entero()
+            elif campo =="Vacaciones":
+                print(f"Ingrese {campo} del empleado: ",end ="")
+                empleado[campo] = pedir_entero()
+            else:
+                empleado[campo] = input(f"Ingrese {campo} del empleado: ")
         lista_de_empleados.append(empleado)
         guardar = input("\n\t¿Desea cargar otro empleado? si/no: ")
 
@@ -75,18 +95,13 @@ def cargar_vacaciones(archivo,vacaciones):
         print("Error al abrir el archivo.")
 
 
-acciones()
-
-
-
-
-
-'''
 def pedir_entero():
     while True:
-        valor = input("Ingrese un número entero: ")
+        valor = input("")
         try:
             return int(valor)
         except ValueError:
-            print("'{}' no es un número entero.".format(valor))
-'''
+            print("'{}' no es un número entero. Por favor ingrese un numero valido: ".format(valor))
+
+
+acciones()
