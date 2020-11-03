@@ -2,13 +2,13 @@ import csv
 import os
 
 def acciones():
-    flag="si"
+
     ruta = input(f"Ingrese el nombre del archivo: ")
     if os.path.isfile(ruta):
-        print('El archivo existe. ¿Desea sobrescribirlo?: ',end="")
-        flag = input("si / no")
-        if flag == "si":
-            ruta = input(f"Ingrese el nombre del archivo")
+        print('El archivo existe. ¿Desea sobreescribirlo?: ',end="")
+        flag = input("si / no: ")
+        if flag == "no":
+            ruta = input(f"Ingrese un nuevo nombre de archivo: ")
     else:
         print('Se creo correctamente.\n');
 
